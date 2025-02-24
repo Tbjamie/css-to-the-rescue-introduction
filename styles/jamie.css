@@ -1,0 +1,227 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* COLORS */
+  --black: #121212;
+
+  /* GRADIENTS */
+  --purple-orange: linear-gradient(90deg in hsl, #6600ff, #ff9900);
+
+  /* FONT SIZES */
+  --fluid-xl: clamp(3rem, 5.249vw + 1.301rem, 10rem);
+}
+
+:focus-visible {
+  outline: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  background-color: var(--black);
+  accent-color: oklch(1 1 264);
+  color: white;
+}
+
+section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+section h1 {
+  background: var(--purple-orange);
+  mix-blend-mode: color-dodge;
+  background-clip: text;
+  background-size: 200% 100%;
+  background-position: right;
+  color: transparent;
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  font-size: var(--fluid-xl);
+  animation: moving-text-gradient 5s infinite linear alternate;
+}
+
+@keyframes moving-text-gradient {
+  to {
+    background-position: left;
+  }
+}
+
+section > div {
+  background: color-mix(in oklch longer hue, red 10%, blue);
+  position: absolute;
+  top: 0;
+  width: 10%;
+  height: 5%;
+}
+
+section > div:first-of-type {
+  left: 25%;
+}
+
+section > div::before {
+  transition: 300ms;
+}
+
+section > div:first-of-type::before {
+  border-bottom: 100px solid blue;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height: 100%;
+  width: 75%;
+  position: absolute;
+  top: -250%;
+  left: -5%;
+  content: "";
+  z-index: -10;
+  filter: blur(10px);
+  animation: spotlight 2.5s infinite linear alternate;
+  animation-fill-mode: forwards;
+  transform-origin: top;
+}
+
+section > div:first-of-type:hover::before,
+section > div:first-of-type:focus::before {
+  border-bottom: 100px solid #6600ff;
+  animation-play-state: paused;
+}
+
+section > div:last-of-type::before {
+  border-bottom: 100px solid blue;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height: 100%;
+  width: 75%;
+  position: absolute;
+  top: -250%;
+  left: -5%;
+  content: "";
+  z-index: -10;
+  filter: blur(10px);
+  animation: spotlight 2.5s -2.5s infinite linear alternate;
+  animation-fill-mode: forwards;
+  transform-origin: top;
+}
+
+section > div:last-of-type:hover::before,
+section > div:last-of-type:focus::before {
+  border-bottom: 100px solid #ffc32b;
+  animation-play-state: paused;
+}
+
+@keyframes spotlight {
+  0% {
+    transform: rotate(25deg) scaleY(4);
+  }
+  100% {
+    transform: rotate(-25deg) scaleY(4);
+  }
+}
+
+section > div:nth-of-type(2) {
+  right: 25%;
+}
+
+@property --a {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+label {
+  position: relative;
+  color: transparent;
+  padding: 1rem 3rem;
+  background: linear-gradient(
+    90deg in hsl,
+    rgb(102 0 255 / var(--a)),
+    rgb(255 153 0 / var(--a))
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: 300ms;
+
+  border-image-source: linear-gradient(90deg in hsl, #6600ff, #ff9900) 1;
+  border-image-width: 0.2em;
+  border-image-slice: 1;
+
+  transition: --a 300ms;
+}
+
+label:hover {
+  /* background: linear-gradient(90deg in hsl, rgb(102 0 255), rgb(255 153 0)); */
+  --a: 0;
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+
+label span {
+  position: absolute;
+}
+
+label::before {
+  position: relative;
+  top: 0;
+  left: 0;
+  color: white;
+  content: "Change to HSL";
+}
+
+:has(input[name="purple-orange"]:checked) label::before {
+  content: "Change to OKLCH";
+}
+
+:has(input[name="purple-orange"]:checked) section h1 {
+  background: linear-gradient(90deg in hsl, #6600ff, #ff9900);
+  background-size: 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input[name="purple-orange"] {
+  /* visibility: hidden; */
+  left: 50%;
+  right: 50%;
+  position: absolute;
+  top: 0;
+}
+
+input[name="purple-orange"]:checked {
+  box-shadow: 1px 1px 10px #6600ff;
+}
+
+@supports (color: oklch(1 0 0)) {
+  :root {
+    /* COLORS */
+    --black: oklch(0 0 0);
+
+    /* GRADIENTS */
+    --purple-orange: linear-gradient(90deg in oklch, #6600ff, #ff9900);
+  }
+
+  label {
+    border-image-source: linear-gradient(90deg in oklch, #6600ff, #ff9900) 1;
+  }
+
+  label:hover {
+    border-image-source: linear-gradient(to left in oklch, #743ad5, #d53a9d);
+  }
+}
