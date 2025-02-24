@@ -12,9 +12,36 @@ body {
     justify-content: center;
 }
 
-section {
+ul img {
+    width: 300px;
+    transition: filter 0.3s ease-in-out;
 }
 
 ul {
     list-style: none;
 }
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: lightgray;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+input[type="radio"]:checked + label {
+    background-color: red;
+    color: white;
+}
+
+
+#css1:checked ~ ul li img {
+    filter: grayscale(100%);
+}
+
+
