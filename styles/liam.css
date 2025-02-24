@@ -1,0 +1,20 @@
+:root {
+    --text-color: black;
+    --background-color: beige;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+section {
+}
+
+ul {
+    list-style: none;
+}
