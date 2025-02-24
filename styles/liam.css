@@ -4,43 +4,90 @@
     --blur : 0px;
     --grayscale: 0;
     --contrast: 1.0;
+    --drop-shadow: 0 0 0;
+    --invert: 0;
+    --index: 0;
 }
 
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--background-color);
-    color: var(--text-color);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    margin: 0;
 }
 
 section {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     justify-content: center;
+    height: 100vh;
+    scroll-snap-align: start;
+    padding: 1em;
 }
+
+div {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+section:nth-child(n+2) {
+    animation: fadeIn linear;
+    background-color: lightblue;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+}
+
 
 ul img {
     transition: filter 0.3s ease-in-out;
-    max-width: 100%;
-    filter: grayscale(var(--grayscale)) blur(var(--blur)) contrast(var(--contrast));
+    max-width: 50%;
+    filter: 
+    grayscale(var(--grayscale)) 
+    blur(var(--blur)) 
+    contrast(var(--contrast)) 
+    drop-shadow(var(--drop-shadow))
+    invert(var(--invert));
 }
 
 ul {
     list-style: none;
+    padding: 0;
 }
 
-input[type="radio"] {
+li {
+    animation: fadeIn 1s ease-in-out forwards;
+    animation-delay: calc(var(--index) * 0.05s);
+    animation-fill-mode: both;
+}
+
+input[type="checkbox"] {
     display: none;
 }
 
-input[type="radio"]:checked + label {
+label {
+    width: 50%;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+label:hover {
+    scale: 1.03;
+}
+
+input[type="checkbox"]:checked + label {
     background-color: red;
     color: white;
 }
-
 
 :has(#css1:checked) img {
     --grayscale: 100;
@@ -52,4 +99,47 @@ input[type="radio"]:checked + label {
 
 :has(#css3:checked) img {
     --contrast: 10.5;
+}
+
+:has(#css4:checked) img {
+    --drop-shadow: 0 0 5px black;
+}
+
+:has(#css5:checked) img {
+    --invert: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ul li:nth-child(1) {
+    --index: 0;
+}
+
+ul li:nth-child(2) {
+    --index: 1.2;
+}
+
+ul li:nth-child(3) {
+    --index: 2.2;
+}
+
+ul li:nth-child(4) {
+    --index: 3.2;
+}
+
+ul li:nth-child(5) {
+    --index: 4.2;
+}
+
+ul li:nth-child(6) {
+    --index: 5;
 }
