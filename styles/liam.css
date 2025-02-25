@@ -25,7 +25,25 @@ section {
     justify-content: center;
     height: 100vh;
     scroll-snap-align: start;
-    padding: 1em;
+    padding: 3em;
+}
+.backgroundBlur {
+    background: url('/liam/img/voorbeeld.jpg') center/cover no-repeat;
+    width: 80%;
+    height: 80%;
+}
+
+.blur {
+    backdrop-filter: blur(5px);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h3 {
+    font-size: 3em;
+    color: var(--text-color);
 }
 
 div {
@@ -34,11 +52,17 @@ div {
     height: 100vh;
 }
 
-section:nth-child(n+2) {
-    animation: fadeIn linear;
-    background-color: lightblue;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
+section:nth-child(2) img {
+    animation: filterAnimation 5s infinite;
+    width: 80%;
+    height: 80%;
+}
+
+
+.filtered-image {
+    filter: url(#coolFilter);
+    width: 80%;
+    height: 80%;
 }
 
 
@@ -112,11 +136,29 @@ input[type="checkbox"]:checked + label {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(200px);
     }
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes filterAnimation {
+    0% {
+        filter: sepia(0) saturate(2) hue-rotate(0deg) brightness(1);
+    }
+    25% {
+        filter: sepia(0.5) saturate(4) hue-rotate(45deg) brightness(1.2);
+    }
+    50% {
+        filter: sepia(1) saturate(8) hue-rotate(90deg) brightness(1.5);
+    }
+    75% {
+        filter: sepia(0.5) saturate(4) hue-rotate(45deg) brightness(1.2);
+    }
+    100% {
+        filter: sepia(0) saturate(2) hue-rotate(0deg) brightness(1);
     }
 }
 
